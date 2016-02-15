@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+# Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "baresip-win32", "baresip.vcxproj", "{4B89C2D8-FB32-4D7C-9019-752A5664781C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3E767371-A72B-4F5C-A695-8F844B0889C5} = {3E767371-A72B-4F5C-A695-8F844B0889C5}
@@ -12,6 +12,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rem-win32", "..\..\..\rem\mk\win32\rem.vcxproj", "{3E767371-A72B-4F5C-A695-8F844B0889C5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{40B28DF6-4B4A-411A-9EB7-8D80C2A29B9D} = {40B28DF6-4B4A-411A-9EB7-8D80C2A29B9D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF6D6871-74AD-4647-8848-BFE4AA744733}"
+	ProjectSection(SolutionItems) = preProject
+		baresip.common.props = baresip.common.props
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

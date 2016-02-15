@@ -29,9 +29,11 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="baresip.common.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="baresip.common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -47,7 +49,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;..\..\include;..\..\..\re\include;..\..\..\rem\include;..\..\..\ffmpeg-win32-dev\include;..\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;STATIC;HAVE_IO_H;HAVE_SELECT;USE_VIDEO;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;STATIC;HAVE_IO_H;HAVE_SELECT;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -67,7 +69,7 @@
       <ProgramDatabaseFile>$(OutDir)baresip-win32.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>avcodec.lib;avutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>avcodec.lib;avutil.lib;Strmiids.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>avcodec.lib;avutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>avcodec.lib;avutil.lib;Strmiids.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -110,14 +112,19 @@
     </ClCompile>
     <ClCompile Include="..\..\modules\ice\ice.c" />
     <ClCompile Include="..\..\modules\menu\menu.c" />
+    <ClCompile Include="..\..\modules\sinwave\sinwave.c" />
+    <ClCompile Include="..\..\modules\sinwave\sinwave.play.c" />
+    <ClCompile Include="..\..\modules\sinwave\sinwave.src.c" />
     <ClCompile Include="..\..\modules\stun\stun.c" />
     <ClCompile Include="..\..\modules\turn\turn.c" />
     <ClCompile Include="..\..\modules\uuid\uuid.c" />
-    <ClCompile Include="..\..\modules\vidloop\vidloop.c" />
+    <ClCompile Include="..\..\modules\vidloop\vidloop.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\modules\vumeter\vumeter.c" />
     <ClCompile Include="..\..\modules\wincons\wincons.c" />
-    <ClCompile Include="..\..\modules\winwave\play.c" />
-    <ClCompile Include="..\..\modules\winwave\src.c" />
+    <ClCompile Include="..\..\modules\winwave\winwave.play.c" />
+    <ClCompile Include="..\..\modules\winwave\winwave.src.c" />
     <ClCompile Include="..\..\src\account.c" />
     <ClCompile Include="..\..\src\aucodec.c" />
     <ClCompile Include="..\..\src\audio.c" />
@@ -130,6 +137,7 @@
     <ClCompile Include="..\..\src\conf.c" />
     <ClCompile Include="..\..\src\config.c" />
     <ClCompile Include="..\..\src\contact.c" />
+    <ClCompile Include="..\..\src\dirent.c" />
     <ClCompile Include="..\..\src\log.c" />
     <ClCompile Include="..\..\src\main.c" />
     <ClCompile Include="..\..\src\mctrl.c" />
@@ -150,7 +158,9 @@
     <ClCompile Include="..\..\src\ui.c" />
     <ClCompile Include="..\..\src\vidcodec.c" />
     <ClCompile Include="..\..\src\vidfilt.c" />
-    <ClCompile Include="..\..\src\video.c" />
+    <ClCompile Include="..\..\src\video.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\vidisp.c" />
     <ClCompile Include="..\..\src\vidsrc.c" />
     <ClCompile Include="..\..\modules\g711\g711.c" />
@@ -159,6 +169,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\modules\avcodec\avcodec.h" />
     <ClInclude Include="..\..\modules\avcodec\h26x.h" />
+    <ClInclude Include="..\..\modules\sinwave\sinwave.h" />
+    <ClInclude Include="..\..\modules\winwave\winwave.h" />
     <ClInclude Include="include\inttypes.h" />
     <ClInclude Include="include\stdint.h" />
     <ClInclude Include="qedit.h" />

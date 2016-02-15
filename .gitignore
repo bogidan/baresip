@@ -23,3 +23,12 @@ selftest
 src/static.c
 build*
 *.pc
+*.sdf
+*.opensdf
+
+
+# VS Build Directories
+/Win32/
+/mk/win32/Debug/
+/mk/win32/Release/
+/mk/win32/ipch/
