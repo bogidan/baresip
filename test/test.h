@@ -46,7 +46,7 @@
 
 /* helpers */
 
-int re_main_timeout(uint32_t timeout);
+int re_main_timeout(uint32_t timeout_ms);
 
 
 #ifdef USE_TLS
@@ -82,6 +82,8 @@ int test_ua_register(void);
 int test_call_answer(void);
 int test_call_reject(void);
 int test_call_af_mismatch(void);
+int test_call_answer_hangup_a(void);
+int test_call_answer_hangup_b(void);
 
 
 #ifdef __cplusplus
