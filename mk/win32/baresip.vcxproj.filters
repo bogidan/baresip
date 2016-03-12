@@ -34,6 +34,9 @@
     <Filter Include="Source Files\modules\repeat">
       <UniqueIdentifier>{8c944be7-a662-4c2d-afc4-e32c57699517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\modules\testplayer">
+      <UniqueIdentifier>{cc64e5fb-b141-4d0d-b0b4-2e6e490d2aed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\aucodec.c">
@@ -219,6 +222,21 @@
     <ClCompile Include="..\..\modules\winwave\winwave.src.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\lib_config.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lib_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\testplayer\testplayer.play.c">
+      <Filter>Source Files\modules\testplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\testplayer\testplayer.src.c">
+      <Filter>Source Files\modules\testplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\testplayer\testplayer.c">
+      <Filter>Source Files\modules\testplayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -244,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="..\..\modules\winwave\winwave.h">
       <Filter>Source Files\modules\winwave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\modules\testplayer\testplayer.h">
+      <Filter>Source Files\modules\testplayer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

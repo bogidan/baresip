@@ -1,4 +1,6 @@
-/* static.c - manually updated */
+/* static.c - manually updated
+	Holds files for static linking of modules.
+*/
 #include <re_types.h>
 #include <re_mod.h>
 
@@ -7,6 +9,7 @@ extern const struct mod_export exports_wincons;
 extern const struct mod_export exports_g711;
 extern const struct mod_export exports_winwave;
 extern const struct mod_export exports_sinwave;
+extern const struct mod_export exports_testplayer;
 extern const struct mod_export exports_dshow;
 extern const struct mod_export exports_avcodec;
 extern const struct mod_export exports_account;
@@ -29,6 +32,7 @@ const struct mod_export *mod_table[] = {
 	&exports_g711,
 	&exports_winwave,
 	&exports_sinwave,
+	&exports_testplayer,
 	&exports_dshow,
 	&exports_account,
 	&exports_contact,

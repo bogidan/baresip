@@ -116,6 +116,9 @@
     <ClCompile Include="..\..\modules\sinwave\sinwave.play.c" />
     <ClCompile Include="..\..\modules\sinwave\sinwave.src.c" />
     <ClCompile Include="..\..\modules\stun\stun.c" />
+    <ClCompile Include="..\..\modules\testplayer\testplayer.c" />
+    <ClCompile Include="..\..\modules\testplayer\testplayer.play.c" />
+    <ClCompile Include="..\..\modules\testplayer\testplayer.src.c" />
     <ClCompile Include="..\..\modules\turn\turn.c" />
     <ClCompile Include="..\..\modules\uuid\uuid.c" />
     <ClCompile Include="..\..\modules\vidloop\vidloop.c">
@@ -138,6 +141,12 @@
     <ClCompile Include="..\..\src\config.c" />
     <ClCompile Include="..\..\src\contact.c" />
     <ClCompile Include="..\..\src\dirent.c" />
+    <ClCompile Include="..\..\src\lib_config.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lib_main.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\log.c" />
     <ClCompile Include="..\..\src\main.c" />
     <ClCompile Include="..\..\src\mctrl.c" />
@@ -170,6 +179,7 @@
     <ClInclude Include="..\..\modules\avcodec\avcodec.h" />
     <ClInclude Include="..\..\modules\avcodec\h26x.h" />
     <ClInclude Include="..\..\modules\sinwave\sinwave.h" />
+    <ClInclude Include="..\..\modules\testplayer\testplayer.h" />
     <ClInclude Include="..\..\modules\winwave\winwave.h" />
     <ClInclude Include="include\inttypes.h" />
     <ClInclude Include="include\stdint.h" />
