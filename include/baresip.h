@@ -228,6 +228,9 @@ int config_print(struct re_printf *pf, const struct config *cfg);
 int config_write_template(const char *file, const struct config *cfg);
 struct config *conf_config(void);
 
+// Lib Implementation
+int lib_config_parse_conf();
+
 
 /*
  * Contact

@@ -148,6 +148,99 @@ int module_init(const struct conf *conf)
 
 	return 0;
 }
+/*
+# UI Modules
+module			wincons.dll
+
+# Audio codec Modules (in order)
+#module			opus.dll
+#module			silk.dll
+#module			amr.dll
+#module			g7221.dll
+#module			g722.dll
+#module			g726.dll
+module			g711.dll
+#module			gsm.dll
+#module			l16.dll
+#module			speex.dll
+#module			bv32.dll
+
+# Audio filter Modules (in encoding order)
+module			vumeter.dll
+module			vumeter.dll
+#module			sndfile.dll
+#module			speex_aec.dll
+#module			speex_pp.dll
+#module			plc.dll
+
+# Audio driver Modules
+#module			winwave.dll
+module			sinwave.dll
+module			testplayer.dll
+#module			portaudio.dll
+
+## Media NAT modules
+module			stun.dll
+module			turn.dll
+module			ice.dll
+#module			natpmp.dll
+
+## Media encryption modules
+#module			srtp.dll
+#module			dtls_srtp.dll
+
+## Temporary Modules (loaded then unloaded)
+module_tmp		uuid.dll
+module_tmp		account.dll
+*/
+const char* lib_modules[] = {
+	"wincons.dll",
+	"g711.dll",
+	"vumeter.dll", "vumeter.dll",
+	"winwave.dll", "sinwave.dll", "testplayer.dll",
+	"stun.dll", "turn.dll", "ice.dll",
+};
+const char* lib_modules_temp[] = {
+	"uuid.dll", "account.dll",
+};
+const char* lib_modules_app[] = {
+	"auloop.dll", "contact.dll", "menu.dll",
+};
+
+#define lengthOf(a) (sizeof(a)/sizeof(*a))
+
+static int lib_module_loader( const char* arr[], size_t len, int (*func)(const struct pl *val, void *arg), struct pl *path )
+{
+	struct pl val;
+	size_t i;
+	int err = 0;
+
+	for( i = 0; i < len; i++ ) {
+		pl_set_str(&val, lib_modules[i]);
+		err = func(&val, path);
+		if( err ) break;
+	}
+
+	return err;
+}
+
+int lib_module_init()
+{
+	struct pl path;
+	int err = 0;
+	pl_set_str(&path, ".");
+
+	err = lib_module_loader( lib_modules,      lengthOf(lib_modules),      module_handler,     &path);
+	if( err ) return err;
+
+	err = lib_module_loader( lib_modules_temp, lengthOf(lib_modules_temp), module_tmp_handler, &path);
+	if( err ) return err;
+
+	err = lib_module_loader( lib_modules_app,  lengthOf(lib_modules_app),  module_app_handler, &path);
+	if( err ) return err;
+
+	return err;
+}
 
 
 void module_app_unload(void)

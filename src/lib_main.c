@@ -11,8 +11,14 @@
 #endif
 #include <re.h>
 #include <baresip.h>
+#include "core.h"
 
-#define lengthOf(a) ((a)/(*a))
+#define DEBUG_MODULE ""
+#define DEBUG_LEVEL 0
+#include <re_dbg.h>
+
+
+#define lengthOf(a) (sizeof(a)/sizeof(*a))
 
 static void signal_handler(int sig)
 {
@@ -30,6 +36,8 @@ static void signal_handler(int sig)
 	ua_stop_all(false);
 }
 
+static int conf_modules(void);
+
 int lib_main()
 {
 	bool prefer_ipv6 = false, run_daemon = false;
@@ -42,7 +50,7 @@ int lib_main()
 	err = libre_init();
 	if(err) goto out;
 
-	err = conf_configure();
+	err = lib_config_parse_conf(); // lib_conf_configure();
 	if (err) {
 		warning("main: configure failed: %m\n", err);
 		goto out;
@@ -104,3 +112,25 @@ out:
 
 	return err;
 }
+
+static int conf_modules(void)
+{
+	int err;
+
+	err = lib_module_init();
+	if (err) {
+		warning("conf: configure module parse error (%m)\n", err);
+		goto out;
+	}
+
+	//print_populated("audio codec",  list_count(aucodec_list()));
+	//print_populated("audio filter", list_count(aufilt_list()));
+#ifdef USE_VIDEO
+	//print_populated("video codec",  list_count(vidcodec_list()));
+	//print_populated("video filter", list_count(vidfilt_list()));
+#endif
+
+ out:
+	return err;
+}
+
