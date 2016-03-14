@@ -1,5 +1,7 @@
-baresip
-=======
+baresip lib
+===========
+
+Fork of baresip for integration as a labrary into other applications.
 
 [![Build Status](https://travis-ci.org/alfredh/baresip.svg?branch=master)](https://travis-ci.org/alfredh/baresip)
 
