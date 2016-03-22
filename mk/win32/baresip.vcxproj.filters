@@ -141,9 +141,6 @@
     <ClCompile Include="..\..\modules\winwave\winwave.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\account\account.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\auloop\auloop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,16 +159,10 @@
     <ClCompile Include="..\..\modules\avcodec\h264.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\contact\contact.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\dshow\dshow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\ice\ice.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\menu\menu.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\stun\stun.c">
@@ -236,6 +227,15 @@
     </ClCompile>
     <ClCompile Include="..\..\modules\testplayer\testplayer.c">
       <Filter>Source Files\modules\testplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\account\account.c">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\menu\menu.c">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\contact\contact.c">
+      <Filter>Source Files\modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

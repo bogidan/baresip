@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
 	size_t modc = 0;
 	int err;
 
+	return lib_main();
 	(void)re_fprintf(stderr, "baresip v%s"
 			 " Copyright (C) 2010 - 2016"
 			 " Alfred E. Heggestad et al.\n",

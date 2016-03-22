@@ -194,7 +194,7 @@ module_tmp		uuid.dll
 module_tmp		account.dll
 */
 const char* lib_modules[] = {
-	"wincons.dll",
+	//"wincons.dll",
 	"g711.dll",
 	"vumeter.dll", "vumeter.dll",
 	"winwave.dll", "sinwave.dll", "testplayer.dll",
@@ -216,7 +216,7 @@ static int lib_module_loader( const char* arr[], size_t len, int (*func)(const s
 	int err = 0;
 
 	for( i = 0; i < len; i++ ) {
-		pl_set_str(&val, lib_modules[i]);
+		pl_set_str(&val, arr[i]);
 		err = func(&val, path);
 		if( err ) break;
 	}
