@@ -48,3 +48,22 @@ const struct mod_export *mod_table[] = {
 	&exports_vumeter,
 	NULL
 };
+
+extern const char* lib_modules[];
+extern const char* lib_modules_temp[];
+extern const char* lib_modules_app[];
+
+// Library Config File
+const char* lib_modules[] = {
+	//"wincons.dll",
+	"g711.dll",
+	"vumeter.dll", "vumeter.dll",
+	"winwave.dll", "sinwave.dll", "testplayer.dll",
+	"stun.dll", "turn.dll", "ice.dll",
+};
+const char* lib_modules_temp[] = {
+	"uuid.dll", "account.dll",
+};
+const char* lib_modules_app[] = {
+	"auloop.dll", "contact.dll", "menu.dll",
+};
