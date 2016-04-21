@@ -21,7 +21,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -52,7 +52,7 @@
       <PreprocessorDefinitions>WIN32;STATIC;HAVE_IO_H;HAVE_SELECT;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -111,6 +111,7 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\modules\ice\ice.c" />
+    <ClCompile Include="..\..\modules\integration\remote.c" />
     <ClCompile Include="..\..\modules\menu\menu.c" />
     <ClCompile Include="..\..\modules\sinwave\sinwave.c" />
     <ClCompile Include="..\..\modules\sinwave\sinwave.play.c" />
@@ -172,6 +173,7 @@
     <ClCompile Include="..\..\modules\winwave\winwave.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\lib.h" />
     <ClInclude Include="..\..\modules\avcodec\avcodec.h" />
     <ClInclude Include="..\..\modules\avcodec\h26x.h" />
     <ClInclude Include="..\..\modules\sinwave\sinwave.h" />

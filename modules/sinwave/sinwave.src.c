@@ -212,28 +212,7 @@ static int read_stream_open(struct ausrc_st *st, const struct ausrc_prm *prm,
 	return err;
 }
 
-#include <Avrt.h>
-#pragma comment(lib, "Avrt.lib")
-void make_audio_thread()
-{
-	DWORD err, taskIndex = 0;
-	HANDLE hTask = AvSetMmThreadCharacteristics("Pro Audio", &taskIndex);
-	switch(err = (hTask==NULL) ? GetLastError() : NO_ERROR) {
-	case NO_ERROR: break;
-	default:
-		info("sinwave: Failed to set 'Pro Audio' thread\n");
-		//	case ERROR_INVALID_TASK_INDEX: BREAK;
-		//	case ERROR_INVALID_TASK_NAME:  BREAK;
-		//	case ERROR_PRIVILEGE_NOT_HELD: BREAK;
-		//DEFAULT("Error setting MMCS thread characteristics [%d] %s\n", err, str_win32error(err) ) break;
-	}
-
-	switch(err = (AvSetMmThreadPriority( hTask, AVRT_PRIORITY_CRITICAL )) ? NO_ERROR : GetLastError()) {
-	case NO_ERROR: break;
-		info("sinwave: Failed to set AV Priority\n");
-		//DEFAULT("Error setting MMCS priority [%d] %s\n", err, str_win32error(err) ) break;
-	}
-}
+void make_audio_thread();
 
 static DWORD WINAPI sin_thread( void *arg )
 {
@@ -329,7 +308,7 @@ int sinwave_src_alloc(struct ausrc_st **stp, const struct ausrc *as,
 	// Initialize Wave Generator
 	st->gen.amplitude   = 0.2f;
 	st->gen.Hz          = 440.0f;
-	st->gen.sample_rate = prm->srate; //(float)(prm->srate * prm->ch * prm->ptime / 1000);
+	st->gen.sample_rate = (float) prm->srate; //(float)(prm->srate * prm->ch * prm->ptime / 1000);
 
 	err = read_stream_open(st, prm, find_dev(device));
 //	st->hThread = CreateThread(NULL, 4096, sin_thread, st, 0, NULL);

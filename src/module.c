@@ -29,9 +29,6 @@ static void modapp_destructor(void *arg)
 
 /* Declared in static.c */
 extern const struct mod_export *mod_table[];
-extern const char* lib_modules[];
-extern const char* lib_modules_temp[];
-extern const char* lib_modules_app[];
 
 static const struct mod_export *find_module(const struct pl *pl)
 {
@@ -196,7 +193,6 @@ module			ice.dll
 module_tmp		uuid.dll
 module_tmp		account.dll
 */
-#define lengthOf(a) (sizeof(a)/sizeof(*a))
 
 static int lib_module_loader( const char* arr[], size_t len, int (*func)(const struct pl *val, void *arg), struct pl *path )
 {
@@ -212,6 +208,34 @@ static int lib_module_loader( const char* arr[], size_t len, int (*func)(const s
 
 	return err;
 }
+
+#define lengthOf(a) (sizeof(a)/sizeof(a[0]))
+// Library Config File
+const char* lib_modules[] = {
+//	"wincons.dll",
+	"g711.dll",
+//	"vumeter.dll", "vumeter.dll",
+//	"winwave.dll",
+	"sinwave.dll",
+//	"testplayer.dll",
+	"remote.dll",
+	"stun.dll", "turn.dll", "ice.dll",
+};
+const char* lib_modules_temp[] = {
+	"uuid.dll",
+//	"account.dll",
+};
+const char* lib_modules_app[] = {
+	"auloop.dll",
+	"contact.dll",
+//	"menu.dll",
+//	"integration.dll",
+//	"mwi.dll",
+//	"natbd.dll",
+//	"presence.dll",
+//	"syslog.dll",
+//	"vidloop.dll",
+};
 
 int lib_module_init()
 {

@@ -37,6 +37,9 @@
     <Filter Include="Source Files\modules\testplayer">
       <UniqueIdentifier>{cc64e5fb-b141-4d0d-b0b4-2e6e490d2aed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library Files">
+      <UniqueIdentifier>{e17c5d98-f288-46ea-af3a-628a0ccdd64a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\aucodec.c">
@@ -180,9 +183,6 @@
     <ClCompile Include="..\..\modules\vumeter\vumeter.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\wincons\wincons.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\account.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -213,12 +213,6 @@
     <ClCompile Include="..\..\modules\winwave\winwave.src.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\lib_config.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\lib_main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\testplayer\testplayer.play.c">
       <Filter>Source Files\modules\testplayer</Filter>
     </ClCompile>
@@ -235,6 +229,18 @@
       <Filter>Source Files\modules</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\contact\contact.c">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\wincons\wincons.c">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lib_main.c">
+      <Filter>Library Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\lib_config.c">
+      <Filter>Library Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\integration\remote.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -265,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="..\..\modules\testplayer\testplayer.h">
       <Filter>Source Files\modules\testplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\lib.h">
+      <Filter>Library Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

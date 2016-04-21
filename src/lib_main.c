@@ -17,8 +17,17 @@
 #define DEBUG_LEVEL 0
 #include <re_dbg.h>
 
-
 #define lengthOf(a) (sizeof(a)/sizeof(*a))
+
+// Variables
+//==============================================================================
+
+static const char* account = "<sip:username:password@server>;answermode=auto";
+
+// Function Definitions
+//==============================================================================
+
+static int conf_modules(void);
 
 static void signal_handler(int sig)
 {
@@ -36,15 +45,71 @@ static void signal_handler(int sig)
 	ua_stop_all(false);
 }
 
-static int conf_modules(void);
+enum control_et {
+	eQuit, eAddAccount,
+};
 
-int lib_main()
+struct control_st {
+	struct mqueue *mq;
+};
+
+static void destructor(void *arg)
+{
+	struct control_st *st = arg;
+	mem_deref(st->mq);
+}
+
+static void mqueue_handler(int id, void *data, void *arg)
+{
+	struct control_st *st = arg;
+	int err = 0;
+
+	switch(id) {
+	case eQuit:
+		re_printf("Quit\n");
+		ua_stop_all(false);
+		break;
+	case eAddAccount:
+		re_printf("Add Account\n");
+		err = ua_alloc(NULL, (char*)data);
+		break;
+	}
+	//tmr_start(&st->tmr, RELEASE_VAL, timeout, st);
+	//report_key(st, id);
+	// mqueue_push(st->mq, ch, 0);
+}
+
+static int lib_init_control( void** ctx )
+{
+	struct control_st *st;
+	int err = 0;
+
+	// init control struct
+	st = mem_zalloc(sizeof(*st), destructor);
+	if (!st) return ENOMEM;
+
+	// init message queue
+	err = mqueue_alloc(&st->mq, mqueue_handler, st);
+	if (err) return -1;
+
+	mqueue_push(st->mq, eAddAccount, account);
+
+	*ctx = (void*) st;
+	return 0;
+}
+
+static int push(void* ctx, int id, void* data) {
+	return mqueue_push( ((struct control_st*)ctx)->mq, id, data);
+}
+
+int lib_main( void** ctx, int (**command)(void*, int, void*) )
 {
 	bool prefer_ipv6 = false, run_daemon = false;
 	const char *ua_eprm = NULL;
 	const char *exec = NULL;
 	const char *sw_version = "baresip v" BARESIP_VERSION " (" ARCH "/" OS ")";
 	int err;
+
 	(void)sys_coredump_set(true);
 
 	err = libre_init();
@@ -55,19 +120,6 @@ int lib_main()
 		warning("main: configure failed: %m\n", err);
 		goto out;
 	}
-
-	/*{
-		size_t i;
-		const char modv[] = {""};
-		for( i = 0; i < lengthOf(modv); i++ ) { // Preload Modules if needed
-			info("pre-loading modules\n");
-
-			err = module_preload();
-			if (err) {
-				re_fprintf(stderr, "could not pre-load module '%s' (%m)\n", modv[i], err);
-			}
-		}
-	} // */
 
 	// Initialise User Agents
 	err = ua_init(sw_version, true, true, true, prefer_ipv6);
@@ -95,7 +147,13 @@ int lib_main()
 	if (exec)
 		ui_input_str(exec);
 
-	// Main loop
+	// Init Controls
+	err = lib_init_control( ctx );
+	if (err) goto out;
+
+	*command = push;
+
+	// Main Loop
 	err = re_main(signal_handler);
 
 out:
