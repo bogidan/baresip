@@ -2,7 +2,6 @@
 #include <re.h>
 #include <rem.h>
 #include <baresip.h>
-//#include "remote.h"
 
 #include <Avrt.h>
 #pragma comment(lib, "Avrt.lib")
@@ -180,7 +179,6 @@ static int remote_src_alloc(
 
 	return err;
 }
-
 
 
 static struct ausrc *ausrc;

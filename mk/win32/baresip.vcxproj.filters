@@ -272,8 +272,5 @@
     <ClInclude Include="..\..\modules\testplayer\testplayer.h">
       <Filter>Source Files\modules\testplayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\lib.h">
-      <Filter>Library Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

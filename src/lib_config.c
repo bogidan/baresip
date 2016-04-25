@@ -20,7 +20,7 @@ static struct config core_config = {
 		"", // sip_certificate
 	},
 	{	// Audio
-		"sinwave","nil", // Source module, device
+		"remote","nil", // Source module, device
 		"sinwave","nil", // Play module, device
 		"sinwave","nil", // Alert module, device
 		{8000, 48000}, // Saample rate range
