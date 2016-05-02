@@ -216,7 +216,7 @@ const char* lib_modules[] = {
 	"g711.dll",
 //	"vumeter.dll", "vumeter.dll",
 //	"winwave.dll",
-	"sinwave.dll",
+//	"sinwave.dll",
 //	"testplayer.dll",
 	"remote.dll",
 	"stun.dll", "turn.dll", "ice.dll",

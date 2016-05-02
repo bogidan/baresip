@@ -22,7 +22,7 @@
 // Variables
 //==============================================================================
 
-static const char* account = "<sip:username:password@server>;answermode=auto";
+static const char* account = "<sip:836:kombea@172.16.0.20>;answermode=auto";
 
 // Function Definitions
 //==============================================================================

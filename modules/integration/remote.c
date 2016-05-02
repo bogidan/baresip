@@ -45,33 +45,50 @@ static uint64_t xtime_interval_ms(size_t ms)
 // Implementation
 //==============================================================================
 
-struct ausrc_st {
-	const struct ausrc *as;      /* inheritance */
-	// Audio Thread
-	HANDLE hThread;
+typedef void (*audio_ft)(int16_t *samples, size_t count);
+static void zeros(int16_t *samples, size_t count) {
+	memset(samples, 0, count * sizeof(*samples));
+}
+static void null_sink(int16_t *samples, size_t count) {
+	(void) samples;
+	(void) count;
+}
+audio_ft pull = zeros, push = null_sink;
+void lib_audio(audio_ft source, audio_ft sink) {
+	pull = (source) ? source : zeros;
+	push = (sink)   ? sink   : null_sink;
+}
+
+// Only one thread should be created per connection.
+struct authread_st {
+	size_t cref;    // Ref count
+	HANDLE hThread; // Audio Thread
+	bool   run;
 	// Stream Information
 	uint32_t srate, ptime; // sample_rate, frame time
 	size_t sampc;          // sample count
-	ausrc_read_h *rh;      // stream function
-	bool  run;
-	void *arg;
+	// Stream Reader
+	ausrc_read_h   *rh;
+	void           *rarg;
+	// Stream Writer
+	auplay_write_h *wh;
+	void           *warg;
+};
+struct ausrc_st {
+	const struct ausrc *as; // inheritance
+	struct authread_st *th;
+};
+struct auplay_st {
+	const struct auplay *ap; // inheritance
+	struct authread_st *th;
 };
 
-typedef void (*audio_ft)(int16_t *samples, size_t count);
-void zeros(int16_t *samples, size_t count) {
-	memset(samples, 0, count * sizeof(*samples));
-}
-audio_ft pull = zeros;
-void lib_audio(audio_ft source, audio_ft sink) {
-	pull = (source) ? source : zeros;
-	(void) sink;
-}
+static struct authread_st authread = {0};
 
 // Single audio thread for source and sink
-static DWORD WINAPI audio_thread( void *arg )
+static DWORD WINAPI authread_proc( void *arg )
 {
-	struct ausrc_st *st = arg;
-	uint32_t idx = 0;
+	struct authread_st *th = arg;
 	int16_t *sampv;
 	const uint64_t freq = xtime_freq();
 	uint64_t now, ts;
@@ -80,19 +97,19 @@ static DWORD WINAPI audio_thread( void *arg )
 	make_audio_thread();
 
 	// Initialize sample buffer
-	sampv = mem_alloc(st->sampc * sizeof(int16_t), NULL);
+	sampv = mem_alloc(th->sampc * sizeof(int16_t), NULL);
 	if (!sampv) return 0;
 
-	// push audio to softphone
-	pull(sampv, st->sampc);
-	st->rh(sampv, st->sampc, st->arg);
+	// (prepush) audio to softphone
+	//pull(sampv, th->sampc);
+	//th->rh(sampv, th->sampc, th->rarg);
 
 	// Initialize time keeping
 	//  manually incremented for initial audio buffering
 	ts   = xtime();
 
 	// Loop thread to generate audio
-	while (st->run) {
+	while (th->run) {
 
 		now = xtime();
 		if (ts > now) {
@@ -101,21 +118,22 @@ static DWORD WINAPI audio_thread( void *arg )
 			continue;
 		}
 
-		// fill buffer
-		pull(sampv, st->sampc);
-		
 		// push audio to softphone
-		st->rh(sampv, st->sampc, st->arg);
+		pull(sampv, th->sampc);
+		if(th->rh) th->rh(sampv, th->sampc, th->rarg);
+		// pull audio from softphone
+		if(th->wh) th->wh(sampv, th->sampc, th->warg);
+		push(sampv, th->sampc);
 
 		// Compute samples played in processor frequency
 		{
 			static int64_t remainder = 0;
 			// elapsed_ticks <= Hz * samples / sample_rate + carry
-			const uint64_t raw = (freq * st->sampc) + remainder;
-			uint64_t elapsed = raw / st->srate;
+			const uint64_t raw = (freq * th->sampc) + remainder;
+			uint64_t elapsed = raw / th->srate;
 
 			// Compute remainder from division
-			remainder        = raw % st->srate;
+			remainder        = raw % th->srate;
 
 			// Adjust ticks for played audio.
 			ts += elapsed;
@@ -128,25 +146,61 @@ static DWORD WINAPI audio_thread( void *arg )
 
 	return 0;
 }
+static int create_authread( struct authread_st *th, uint32_t srate, uint32_t ptime, size_t sampc )
+{
+
+	int err = 0;
+	th->run = true;
+	if(th->cref == 0) {
+		th->hThread = CreateThread(NULL, 4096, authread_proc, th, 0, NULL);
+
+		if( th->hThread != NULL ) {
+			th->cref++;
+		} else {
+			err = true;
+		}
+
+		th->srate = srate;
+		th->ptime = ptime;
+		th->sampc = sampc;
+	} else { // Verify Stream information
+		if( th->srate != srate || th->ptime != ptime || th->sampc != sampc ) {
+			error("Second authread parameters do not match first");
+			err = true;
+		}
+	}
+	return err;
+}
+static void destroy_authread( struct authread_st *th )
+{
+	if(--th->cref == 0) {
+		th->run = false;
+	}
+}
 
 static void ausrc_destructor(void *arg)
 {
 	struct ausrc_st *st = arg;
-	st->run = false;
-	st->rh = NULL;
+	destroy_authread(st->th);
+	st->th->rh   = 0;
+	st->th->rarg = 0;
+}
+static void auplay_destructor(void *arg)
+{
+	struct auplay_st *st = arg;
+	destroy_authread(st->th);
+	st->th->wh   = 0;
+	st->th->warg = 0;
 }
 
 static int remote_src_alloc(
-	struct ausrc_st **stp,
-	const struct ausrc *as,
-	struct media_ctx **ctx,
-	struct ausrc_prm *prm,
-	const char *device,
-	ausrc_read_h *rh,
-	ausrc_error_h *errh,
-	void *arg
+	struct ausrc_st **stp, const struct ausrc *as,
+	struct media_ctx **ctx, struct ausrc_prm *prm,
+	const char *device, ausrc_read_h *rh,
+	ausrc_error_h *errh, void *arg
 ) {
 	struct ausrc_st *st;
+	struct authread_st *th = &authread;
 	int err;
 
 	(void)ctx;
@@ -159,30 +213,55 @@ static int remote_src_alloc(
 	if (!st)
 		return ENOMEM;
 
-	st->as  = as;
-	st->rh  = rh;
-	st->arg = arg;
-	st->run = true;
+	st->as   = as;
+	st->th   = th;
+	th->rh   = rh;
+	th->rarg = arg;
 
-	st->srate = prm->srate;
-	st->ptime = prm->ptime;
-	st->sampc = prm->srate * prm->ch * prm->ptime / 1000;
+	err = create_authread(st->th, prm->srate, prm->ptime, prm->srate * prm->ch * prm->ptime / 1000);
 	
-	st->hThread = CreateThread(NULL, 4096, audio_thread, st, 0, NULL);
-	err = (st->hThread == NULL);
-
 	if (err) {
 		mem_deref(st);
-		st->rh = false;
+		th->rh = false;
 	} else
 		*stp = st;
 
 	return err;
 }
 
+int remote_play_alloc(
+	struct auplay_st **stp, const struct auplay *ap,
+	struct auplay_prm *prm, const char *device,
+	auplay_write_h *wh, void *arg
+) {
+	struct auplay_st *st;
+	struct authread_st *th = &authread;
+	int err = 0;
 
-static struct ausrc *ausrc;
-static struct auplay *auplay;
+	if (!stp || !ap || !prm)
+		return EINVAL;
+
+	st = mem_zalloc(sizeof(*st), auplay_destructor);
+	if (!st)
+		return ENOMEM;
+
+	st->ap  = ap;
+	st->th   = th;
+	th->wh   = wh;
+	th->warg = arg;
+
+	err = create_authread(st->th, prm->srate, prm->ptime, prm->srate * prm->ch * prm->ptime / 1000);
+
+	if (err)
+		mem_deref(st);
+	else
+		*stp = st;
+
+	return err;
+}
+
+static struct ausrc       *ausrc;
+static struct auplay      *auplay;
 
 static int sw_init(void)
 {
@@ -191,7 +270,7 @@ static int sw_init(void)
 	info("remote: Starting remote audio connection.\n");
 
 	err  = ausrc_register (&ausrc,  "remote", remote_src_alloc);
-	//err |= auplay_register(&auplay, "remote", remote_play_alloc);
+	err |= auplay_register(&auplay, "remote", remote_play_alloc);
 
 	return err;
 }

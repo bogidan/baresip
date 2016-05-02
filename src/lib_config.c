@@ -21,8 +21,8 @@ static struct config core_config = {
 	},
 	{	// Audio
 		"remote","nil", // Source module, device
-		"sinwave","nil", // Play module, device
-		"sinwave","nil", // Alert module, device
+		"remote","nil", // Play module, device
+		"nil","nil", // Alert module, device
 		{8000, 48000}, // Saample rate range
 		{1, 2}, // Channels
 		0, 0, 0, 0, // Defaults
