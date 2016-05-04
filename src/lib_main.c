@@ -22,8 +22,6 @@
 // Variables
 //==============================================================================
 
-static const char* account = "<sip:836:kombea@172.16.0.20>;answermode=auto";
-
 // Function Definitions
 //==============================================================================
 
@@ -46,7 +44,7 @@ static void signal_handler(int sig)
 }
 
 enum control_et {
-	eQuit, eAddAccount,
+	eQuit, eRegister,
 };
 
 struct control_st {
@@ -69,8 +67,8 @@ static void mqueue_handler(int id, void *data, void *arg)
 		re_printf("Quit\n");
 		ua_stop_all(false);
 		break;
-	case eAddAccount:
-		re_printf("Add Account\n");
+	case eRegister:
+		re_printf("Register Account\n");
 		err = ua_alloc(NULL, (char*)data);
 		break;
 	}
@@ -91,8 +89,6 @@ static int lib_init_control( void** ctx )
 	// init message queue
 	err = mqueue_alloc(&st->mq, mqueue_handler, st);
 	if (err) return -1;
-
-	mqueue_push(st->mq, eAddAccount, account);
 
 	*ctx = (void*) st;
 	return 0;

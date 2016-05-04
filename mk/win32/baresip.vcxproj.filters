@@ -40,6 +40,9 @@
     <Filter Include="Library Files">
       <UniqueIdentifier>{e17c5d98-f288-46ea-af3a-628a0ccdd64a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Video">
+      <UniqueIdentifier>{8e0df6f9-decd-4ec2-88f0-8d69cdcd9a60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\aucodec.c">
@@ -126,9 +129,6 @@
     <ClCompile Include="..\..\src\vidfilt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\video.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\vidisp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,21 +147,6 @@
     <ClCompile Include="..\..\modules\auloop\auloop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\avcodec.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\decode.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\encode.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\h263.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\h264.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\dshow\dshow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -175,9 +160,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\uuid\uuid.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\vidloop\vidloop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\vumeter\vumeter.c">
@@ -242,6 +224,27 @@
     </ClCompile>
     <ClCompile Include="..\..\modules\integration\remote.c">
       <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\avcodec\avcodec.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\avcodec\decode.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\avcodec\encode.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\avcodec\h263.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\avcodec\h264.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\vidloop\vidloop.c">
+      <Filter>Video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\video.c">
+      <Filter>Video</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
