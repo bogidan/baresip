@@ -25,9 +25,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
     </Filter>
-    <Filter Include="Source Files\win32">
-      <UniqueIdentifier>{cf14289b-193f-4ee0-9a48-5063b2961a52}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\modules\sinwave">
       <UniqueIdentifier>{44a5ca7e-d65c-4c9e-b096-08cdb974559d}</UniqueIdentifier>
     </Filter>
@@ -36,9 +33,6 @@
     </Filter>
     <Filter Include="Source Files\modules\testplayer">
       <UniqueIdentifier>{cc64e5fb-b141-4d0d-b0b4-2e6e490d2aed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library Files">
-      <UniqueIdentifier>{e17c5d98-f288-46ea-af3a-628a0ccdd64a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Video">
       <UniqueIdentifier>{8e0df6f9-decd-4ec2-88f0-8d69cdcd9a60}</UniqueIdentifier>
@@ -150,9 +144,6 @@
     <ClCompile Include="..\..\modules\dshow\dshow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\ice\ice.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\stun\stun.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -216,15 +207,6 @@
     <ClCompile Include="..\..\modules\wincons\wincons.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\lib_main.c">
-      <Filter>Library Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\lib_config.c">
-      <Filter>Library Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\integration\remote.c">
-      <Filter>Source Files\modules</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\avcodec\avcodec.c">
       <Filter>Video</Filter>
     </ClCompile>
@@ -246,6 +228,12 @@
     <ClCompile Include="..\..\src\video.c">
       <Filter>Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\lib_config.c" />
+    <ClCompile Include="..\..\src\lib_main.c" />
+    <ClCompile Include="..\..\modules\ice\ice.c">
+      <Filter>Source Files\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\modules\integration\remote.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -275,5 +263,6 @@
     <ClInclude Include="..\..\modules\testplayer\testplayer.h">
       <Filter>Source Files\modules\testplayer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\modules\integration\integration.h" />
   </ItemGroup>
 </Project>

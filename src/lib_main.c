@@ -43,10 +43,7 @@ static void signal_handler(int sig)
 	ua_stop_all(false);
 }
 
-enum control_et {
-	eQuit, eRegister,
-};
-
+#include "../modules/integration/integration.h"
 struct control_st {
 	struct mqueue *mq;
 };
@@ -71,10 +68,19 @@ static void mqueue_handler(int id, void *data, void *arg)
 		re_printf("Register Account\n");
 		err = ua_alloc(NULL, (char*)data);
 		break;
+	case eAnswer:
+		re_printf("Answer Call\n");
+		ua_hold_answer(uag_current(), NULL);
+		break;
+	case eHangup:
+		re_printf("Hang-Up Call\n");
+		ua_hangup(uag_current(), NULL, 0, NULL);
+		break;
+	case eDial:
+		re_printf("Dial Call (%s)\n", (char*)data);
+		err = ua_connect(uag_current(), NULL, NULL, (char*)data, NULL, VIDMODE_OFF);
+		break;
 	}
-	//tmr_start(&st->tmr, RELEASE_VAL, timeout, st);
-	//report_key(st, id);
-	// mqueue_push(st->mq, ch, 0);
 }
 
 static int lib_init_control( void** ctx )
@@ -98,7 +104,7 @@ static int push(void* ctx, int id, void* data) {
 	return mqueue_push( ((struct control_st*)ctx)->mq, id, data);
 }
 
-int lib_main( void** ctx, int (**command)(void*, int, void*) )
+int lib_main( struct baresip_control *control )
 {
 	bool prefer_ipv6 = false, run_daemon = false;
 	const char *ua_eprm = NULL;
@@ -144,10 +150,10 @@ int lib_main( void** ctx, int (**command)(void*, int, void*) )
 		ui_input_str(exec);
 
 	// Init Controls
-	err = lib_init_control( ctx );
+	err = lib_init_control( &control->ctx );
 	if (err) goto out;
 
-	*command = push;
+	control->cmd = push;
 
 	// Main Loop
 	err = re_main(signal_handler);

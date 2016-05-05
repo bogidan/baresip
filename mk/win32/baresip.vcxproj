@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\modules\avcodec\avcodec.h" />
     <ClInclude Include="..\..\modules\avcodec\h26x.h" />
+    <ClInclude Include="..\..\modules\integration\integration.h" />
     <ClInclude Include="..\..\modules\sinwave\sinwave.h" />
     <ClInclude Include="..\..\modules\testplayer\testplayer.h" />
     <ClInclude Include="..\..\modules\winwave\winwave.h" />
