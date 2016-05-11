@@ -75,6 +75,8 @@ static void mqueue_handler(int id, void *data, void *arg)
 		re_printf("Dial Call (%s)\n", (char*)data);
 		err = ua_connect(uag_current(), NULL, NULL, (char*)data, NULL, VIDMODE_OFF);
 		break;
+	default:
+		return;
 	}
 
 	// Echo back
@@ -84,8 +86,13 @@ static void mqueue_handler(int id, void *data, void *arg)
 
 int lib_control(void* ctx, enum baresip_et id, void* data)
 {
+	struct control_st *st = ctx;
 	if( ctx == NULL ) return -1;
-	return mqueue_push( ((struct control_st*)ctx)->mq, id, data);
+	return mqueue_push( st->mq, id, data);
+}
+
+static void notify(struct baresip_control *control, enum baresip_et id, void *data) {
+	control->cb(control->arg, id, data);
 }
 
 void ua_event_handler(struct ua *ua, enum ua_event ev, struct call *call, const char *prm, void *arg)
@@ -93,7 +100,53 @@ void ua_event_handler(struct ua *ua, enum ua_event ev, struct call *call, const 
 	struct baresip_control *control = arg;
 	if( control->cb == NULL ) return;
 
-	control->cb(control->arg, 0, NULL);
+	switch(ev) {
+	// User Agent Events
+	case UA_EVENT_REGISTERING:
+		notify(control, UA_REGISTERING, NULL);
+		break;
+	case UA_EVENT_REGISTER_OK:
+		notify(control, UA_REGISTER_OK, NULL);
+		break;
+	case UA_EVENT_REGISTER_FAIL:
+		notify(control, UA_REGISTER_FAIL, NULL);
+		break;
+	case UA_EVENT_UNREGISTERING:
+		notify(control, UA_UNREGISTERING, NULL);
+		break;
+	case UA_EVENT_SHUTDOWN:
+		notify(control, UA_SHUTDOWN, NULL);
+		break;
+	case UA_EVENT_EXIT:
+		notify(control, UA_EXIT, NULL);
+		break;
+
+	// Call Events
+	case UA_EVENT_CALL_INCOMING:
+		notify(control, CALL_INCOMING, NULL );
+		break;
+	case UA_EVENT_CALL_RINGING:
+		notify(control, CALL_RINGING, NULL );
+		break;
+	case UA_EVENT_CALL_PROGRESS:
+		notify(control, CALL_PROGRESS, NULL );
+		break;
+	case UA_EVENT_CALL_ESTABLISHED:
+		notify(control, CALL_ESTABLISHED, NULL );
+		break;
+	case UA_EVENT_CALL_CLOSED:
+		notify(control, CALL_CLOSED, NULL );
+		break;
+	case UA_EVENT_CALL_TRANSFER_FAILED:
+		notify(control, CALL_TRANSFER_FAILED, NULL );
+		break;
+	case UA_EVENT_CALL_DTMF_START:
+		notify(control, CALL_DTMF, (void*)prm[0] );
+		break;
+	case UA_EVENT_CALL_DTMF_END:
+		notify(control, CALL_DTMF, NULL );
+		break;
+	}
 }
 
 static void destructor(void *arg)
@@ -112,7 +165,7 @@ static int init_control( struct baresip_control *control )
 	if (!st) return ENOMEM;
 
 	// init message queue
-	err = mqueue_alloc(&st->mq, mqueue_handler, st);
+	err = mqueue_alloc(&st->mq, mqueue_handler, control);
 	if (err) return -1;
 
 	control->ctx = (void*) st;
@@ -172,15 +225,15 @@ int lib_main( struct baresip_control *control )
 	if (err) goto out;
 
 	// Signal Init complete
-	if( control->cb ) control->cb(control->arg, esInitialized, NULL);
-	info("baresip is ready.\n");
+	if( control->cb ) control->cb(control->arg, BARESIP_INITIALIZED, NULL);
 
 	// Main Loop
 	err = re_main(signal_handler);
 
-	// Signal Closing
-	if( control->cb ) control->cb(control->arg, esStopped, NULL);
 out:
+	// Signal Closing
+	if( control->cb ) control->cb(control->arg, BARESIP_STOPPED, (void*) err);
+
 	if (err) ua_stop_all(true);
 
 	ua_close();

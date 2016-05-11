@@ -151,13 +151,11 @@ static int create_authread( struct authread_st *th, uint32_t srate, uint32_t pti
 
 	int err = 0;
 	th->run = true;
-	if(th->cref == 0) {
+	if(th->cref++ == 0) {
 		th->hThread = CreateThread(NULL, 4096, authread_proc, th, 0, NULL);
 
-		if( th->hThread != NULL ) {
-			th->cref++;
-		} else {
-			err = true;
+		if( th->hThread == NULL ) {
+			err = -1;
 		}
 
 		th->srate = srate;

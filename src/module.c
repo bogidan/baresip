@@ -227,7 +227,7 @@ const char* lib_modules_temp[] = {
 };
 const char* lib_modules_app[] = {
 	"auloop.dll",
-	"contact.dll",
+//	"contact.dll",
 //	"menu.dll",
 //	"integration.dll",
 //	"mwi.dll",
@@ -246,8 +246,8 @@ int lib_module_init()
 	err = lib_module_loader( lib_modules,      lengthOf(lib_modules),      module_handler,     &path);
 	if( err ) return err;
 
-	err = lib_module_loader( lib_modules_temp, lengthOf(lib_modules_temp), module_tmp_handler, &path);
-	if( err ) return err;
+//	err = lib_module_loader( lib_modules_temp, lengthOf(lib_modules_temp), module_tmp_handler, &path);
+//	if( err ) return err;
 
 	err = lib_module_loader( lib_modules_app,  lengthOf(lib_modules_app),  module_app_handler, &path);
 	if( err ) return err;

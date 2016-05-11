@@ -1,7 +1,30 @@
 #pragma once
 
 typedef void (*audio_ft)(int16_t *samples, size_t count);
-typedef void (*monitor_ft)(void *arg, enum barsip_et msg, void *data);
+typedef void (*monitor_ft)(void *arg, enum baresip_et msg, void *data);
+
+enum baresip_et {
+	// Control
+	eQuit, eRegister, eAnswer, eHangup, eDial,
+	// Status
+	BARESIP_INITIALIZED,
+	BARESIP_STOPPED,
+	// User Agent Events
+	UA_REGISTERING,
+	UA_REGISTER_OK,
+	UA_REGISTER_FAIL,
+	UA_UNREGISTERING,
+	UA_SHUTDOWN,
+	UA_EXIT,
+	// Call Events
+	CALL_INCOMING,
+	CALL_RINGING,
+	CALL_PROGRESS,
+	CALL_ESTABLISHED,
+	CALL_CLOSED,
+	CALL_TRANSFER_FAILED,
+	CALL_DTMF,
+};
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,15 +35,6 @@ int lib_control(void* ctx, enum baresip_et id, void* data);
 #ifdef __cplusplus
 }
 #endif
-
-enum baresip_et {
-	// Control
-	eQuit, eRegister, eAnswer, eHangup, eDial,
-	// Status
-	esInitialized, esStopped,
-	esDTMF,
-};
-
 
 // Reference and function to push to the internal baresip queue
 struct baresip_control {
