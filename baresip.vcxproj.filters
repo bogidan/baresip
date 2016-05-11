@@ -33,206 +33,206 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\aucodec.c">
+    <ClCompile Include="src\aucodec.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\audio.c">
+    <ClCompile Include="src\audio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\aufilt.c">
+    <ClCompile Include="src\aufilt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\auplay.c">
+    <ClCompile Include="src\auplay.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ausrc.c">
+    <ClCompile Include="src\ausrc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\bfcp.c">
+    <ClCompile Include="src\bfcp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\call.c">
+    <ClCompile Include="src\call.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\cmd.c">
+    <ClCompile Include="src\cmd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\conf.c">
+    <ClCompile Include="src\conf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\contact.c">
+    <ClCompile Include="src\contact.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\main.c">
+    <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\mctrl.c">
+    <ClCompile Include="src\mctrl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\menc.c">
+    <ClCompile Include="src\menc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\message.c">
+    <ClCompile Include="src\message.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\mnat.c">
+    <ClCompile Include="src\mnat.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\module.c">
+    <ClCompile Include="src\module.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\net.c">
+    <ClCompile Include="src\net.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\play.c">
+    <ClCompile Include="src\play.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\reg.c">
+    <ClCompile Include="src\reg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\rtpkeep.c">
+    <ClCompile Include="src\rtpkeep.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="static.c">
+    <ClCompile Include="mk\win32\static.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\sdp.c">
+    <ClCompile Include="src\sdp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\stream.c">
+    <ClCompile Include="src\stream.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\sipreq.c">
+    <ClCompile Include="src\sipreq.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ua.c">
+    <ClCompile Include="src\ua.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui.c">
+    <ClCompile Include="src\ui.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vidcodec.c">
+    <ClCompile Include="src\vidcodec.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vidfilt.c">
+    <ClCompile Include="src\vidfilt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vidisp.c">
+    <ClCompile Include="src\vidisp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vidsrc.c">
+    <ClCompile Include="src\vidsrc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\g711\g711.c">
+    <ClCompile Include="modules\g711\g711.c">
       <Filter>Source Files\modules\g711</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\cons\cons.c">
+    <ClCompile Include="modules\cons\cons.c">
       <Filter>Source Files\modules\cons</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\winwave\winwave.c">
+    <ClCompile Include="modules\winwave\winwave.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\auloop\auloop.c">
+    <ClCompile Include="modules\auloop\auloop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\dshow\dshow.cpp">
+    <ClCompile Include="modules\dshow\dshow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\stun\stun.c">
+    <ClCompile Include="modules\stun\stun.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\turn\turn.c">
+    <ClCompile Include="modules\turn\turn.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\uuid\uuid.c">
+    <ClCompile Include="modules\uuid\uuid.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\vumeter\vumeter.c">
+    <ClCompile Include="modules\vumeter\vumeter.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\account.c">
+    <ClCompile Include="src\account.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\config.c">
+    <ClCompile Include="src\config.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\log.c">
+    <ClCompile Include="src\log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\metric.c">
+    <ClCompile Include="src\metric.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\dirent.c">
+    <ClCompile Include="src\dirent.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\winwave\winwave.play.c">
+    <ClCompile Include="modules\winwave\winwave.play.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\winwave\winwave.src.c">
+    <ClCompile Include="modules\winwave\winwave.src.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\account\account.c">
+    <ClCompile Include="modules\account\account.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\menu\menu.c">
+    <ClCompile Include="modules\menu\menu.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\contact\contact.c">
+    <ClCompile Include="modules\contact\contact.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\wincons\wincons.c">
+    <ClCompile Include="modules\wincons\wincons.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\avcodec.c">
+    <ClCompile Include="modules\avcodec\avcodec.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\decode.c">
+    <ClCompile Include="modules\avcodec\decode.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\encode.c">
+    <ClCompile Include="modules\avcodec\encode.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\h263.c">
+    <ClCompile Include="modules\avcodec\h263.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\avcodec\h264.c">
+    <ClCompile Include="modules\avcodec\h264.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\vidloop\vidloop.c">
+    <ClCompile Include="modules\vidloop\vidloop.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\video.c">
+    <ClCompile Include="src\video.c">
       <Filter>Video</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\lib_config.c" />
-    <ClCompile Include="..\..\src\lib_main.c" />
-    <ClCompile Include="..\..\modules\ice\ice.c">
+    <ClCompile Include="src\lib_config.c" />
+    <ClCompile Include="src\lib_main.c" />
+    <ClCompile Include="modules\ice\ice.c">
       <Filter>Source Files\modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\integration\remote.c" />
+    <ClCompile Include="modules\integration\remote.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="mk\win32\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\modules\avcodec\avcodec.h">
+    <ClInclude Include="modules\avcodec\avcodec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\modules\avcodec\h26x.h">
+    <ClInclude Include="modules\avcodec\h26x.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\inttypes.h">
+    <ClInclude Include="mk\win32\include\inttypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\stdint.h">
+    <ClInclude Include="mk\win32\include\stdint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qedit.h">
+    <ClInclude Include="mk\win32\qedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\modules\winwave\winwave.h">
+    <ClInclude Include="modules\winwave\winwave.h">
       <Filter>Source Files\modules\winwave</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\modules\integration\integration.h" />
+    <ClInclude Include="modules\integration\integration.h" />
   </ItemGroup>
 </Project>

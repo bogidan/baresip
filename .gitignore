@@ -1,3 +1,6 @@
+[dD]ebug/
+[eR]elease/
+
 # Object files
 *.o
 *.ko
