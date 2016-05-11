@@ -48,15 +48,10 @@ struct control_st {
 	struct mqueue *mq;
 };
 
-static void destructor(void *arg)
-{
-	struct control_st *st = arg;
-	mem_deref(st->mq);
-}
-
 static void mqueue_handler(int id, void *data, void *arg)
 {
-	struct control_st *st = arg;
+	struct baresip_control *control = arg;
+	struct control_st *st = control->ctx;
 	int err = 0;
 
 	switch(id) {
@@ -81,9 +76,33 @@ static void mqueue_handler(int id, void *data, void *arg)
 		err = ua_connect(uag_current(), NULL, NULL, (char*)data, NULL, VIDMODE_OFF);
 		break;
 	}
+
+	// Echo back
+	if( control->cb == NULL ) return;
+	control->cb(control->arg, id, (void*)err);
 }
 
-static int lib_init_control( void** ctx )
+int lib_control(void* ctx, enum baresip_et id, void* data)
+{
+	if( ctx == NULL ) return -1;
+	return mqueue_push( ((struct control_st*)ctx)->mq, id, data);
+}
+
+void ua_event_handler(struct ua *ua, enum ua_event ev, struct call *call, const char *prm, void *arg)
+{
+	struct baresip_control *control = arg;
+	if( control->cb == NULL ) return;
+
+	control->cb(control->arg, 0, NULL);
+}
+
+static void destructor(void *arg)
+{
+	struct control_st *st = arg;
+	mem_deref(st->mq);
+}
+
+static int init_control( struct baresip_control *control )
 {
 	struct control_st *st;
 	int err = 0;
@@ -96,19 +115,15 @@ static int lib_init_control( void** ctx )
 	err = mqueue_alloc(&st->mq, mqueue_handler, st);
 	if (err) return -1;
 
-	*ctx = (void*) st;
+	control->ctx = (void*) st;
 	return 0;
 }
 
-static int push(void* ctx, int id, void* data) {
-	return mqueue_push( ((struct control_st*)ctx)->mq, id, data);
-}
 
 int lib_main( struct baresip_control *control )
 {
 	bool prefer_ipv6 = false, run_daemon = false;
 	const char *ua_eprm = NULL;
-	const char *exec = NULL;
 	const char *sw_version = "baresip v" BARESIP_VERSION " (" ARCH "/" OS ")";
 	int err;
 
@@ -116,6 +131,10 @@ int lib_main( struct baresip_control *control )
 
 	err = libre_init();
 	if(err) goto out;
+
+	// TODO: setup correct calling of
+	// conf_configure()
+	// struct config *conf_config(void)
 
 	err = lib_config_parse_conf(); // lib_conf_configure();
 	if (err) {
@@ -132,6 +151,10 @@ int lib_main( struct baresip_control *control )
 		if (err) goto out;
 	}
 
+	// Register event handler
+	err = uag_event_register(ua_event_handler, control);
+	if (err) goto out;
+
 	// Load modules
 	err = conf_modules();
 	if (err) goto out;
@@ -144,20 +167,19 @@ int lib_main( struct baresip_control *control )
 		log_enable_stderr(false);
 	}
 
-	info("baresip is ready.\n");
-
-	if (exec)
-		ui_input_str(exec);
-
-	// Init Controls
-	err = lib_init_control( &control->ctx );
+	// Init control message queue
+	err = init_control( control );
 	if (err) goto out;
 
-	control->cmd = push;
+	// Signal Init complete
+	if( control->cb ) control->cb(control->arg, esInitialized, NULL);
+	info("baresip is ready.\n");
 
 	// Main Loop
 	err = re_main(signal_handler);
 
+	// Signal Closing
+	if( control->cb ) control->cb(control->arg, esStopped, NULL);
 out:
 	if (err) ua_stop_all(true);
 

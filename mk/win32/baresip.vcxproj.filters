@@ -25,14 +25,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
     </Filter>
-    <Filter Include="Source Files\modules\sinwave">
-      <UniqueIdentifier>{44a5ca7e-d65c-4c9e-b096-08cdb974559d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\modules\repeat">
       <UniqueIdentifier>{8c944be7-a662-4c2d-afc4-e32c57699517}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\modules\testplayer">
-      <UniqueIdentifier>{cc64e5fb-b141-4d0d-b0b4-2e6e490d2aed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Video">
       <UniqueIdentifier>{8e0df6f9-decd-4ec2-88f0-8d69cdcd9a60}</UniqueIdentifier>
@@ -171,29 +165,11 @@
     <ClCompile Include="..\..\src\dirent.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\modules\sinwave\sinwave.src.c">
-      <Filter>Source Files\modules\sinwave</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\sinwave\sinwave.play.c">
-      <Filter>Source Files\modules\sinwave</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\sinwave\sinwave.c">
-      <Filter>Source Files\modules\sinwave</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\modules\winwave\winwave.play.c">
       <Filter>Source Files\modules\winwave</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\winwave\winwave.src.c">
       <Filter>Source Files\modules\winwave</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\testplayer\testplayer.play.c">
-      <Filter>Source Files\modules\testplayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\testplayer\testplayer.src.c">
-      <Filter>Source Files\modules\testplayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\modules\testplayer\testplayer.c">
-      <Filter>Source Files\modules\testplayer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\modules\account\account.c">
       <Filter>Source Files\modules</Filter>
@@ -254,14 +230,8 @@
     <ClInclude Include="qedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\modules\sinwave\sinwave.h">
-      <Filter>Source Files\modules\sinwave</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\modules\winwave\winwave.h">
       <Filter>Source Files\modules\winwave</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\modules\testplayer\testplayer.h">
-      <Filter>Source Files\modules\testplayer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\modules\integration\integration.h" />
   </ItemGroup>

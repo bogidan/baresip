@@ -726,6 +726,5 @@ int config_write_template(const char *file, const struct config *cfg)
 
 struct config *conf_config(void)
 {
-	return lib_conf_config();
 	return &core_config;
 }
